@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta Regresiva - LoroGVNG</title>
+    <link rel="stylesheet" href="cs.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <img src="/Loro.png" alt="Logo LoroGVNG" class="logo">
+        <div id="cuentaRegresiva" class="cuenta-regresiva">
+            00d 00h 00m 00s
+        </div>
+    </div>
+
+    <script>
+        const fechaLimite = new Date('2025-03-31T23:59:59').getTime();
+
+        function actualizarCuentaRegresiva() {
+            const ahora = new Date().getTime();
+            const diferencia = fechaLimite - ahora;
+
+            if (diferencia <= 0) {
+                document.getElementById("cuentaRegresiva").innerHTML = "¡El sorteo ha finalizado!";
+                clearInterval(intervalo);
+                return;
+            }
+
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            document.getElementById("cuentaRegresiva").innerHTML = 
+                `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+        }
+
+        const intervalo = setInterval(actualizarCuentaRegresiva, 1000);
+        actualizarCuentaRegresiva();
+    </script>
+</body>
+</html>
